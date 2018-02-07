@@ -1,3 +1,8 @@
+#Directories
+
+#Specific Files
+ex1data1.txt
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
