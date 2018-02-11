@@ -37,6 +37,13 @@ def plotData(X, y):
 	plt.plot(X_data, y_data_predicted, marker='*', linestyle='-', color='b', label='pred')
 	plt.legend(loc='lower right')
 
+'''
+SIGMOID computes sigmoid of a number
+'''
+def sigmoid(x):
+  return 1 / (1 + np.exp(-x))
+	
+	
 ## Load Data
 #  The first two columns contains the exam scores and the third column
 #  contains the label.
@@ -53,4 +60,7 @@ y 		= np.array(y_data)
 X 		= np.c_[np.ones(m), np.array(X_data)] # Add a column of ones to x
 
 #Call The Plotting Function
-plotData(X, y)
+#plotData(X, y)
+
+#Call The Sigmoid Function
+#print sigmoid(np.zeros((2,2)))
