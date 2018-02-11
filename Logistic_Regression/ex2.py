@@ -43,6 +43,33 @@ SIGMOID computes sigmoid of a number
 def sigmoid(x):
   return 1 / (1 + np.exp(-x))
 	
+'''
+ComputeCost computes the cost function
+'''
+def computeCost(theta, X, y):
+	#computeCost Compute cost for logistic regression
+	#   J = computeCost(X, y, theta) computes the cost of using theta as the
+	#	parameter for logistic regression and the gradient of the cost
+   #	w.r.t. to the parameters.
+
+	# Initialize some useful values
+	m = len(y); # number of training examples
+
+	# You need to return the following variables correctly 
+	J = 0;
+
+	# ====================== YOUR CODE HERE ======================
+	# Instructions: Compute the cost of a particular choice of theta
+	# =========================================================================
+	# You should set J to the cost.
+	y = y.reshape(m,1)
+	z		 	= np.matmul(X,theta) 		# X*theta
+	h_theta	  	= sigmoid(z)				# sigmoid
+	cost_0		= np.log(1-h_theta)			# Cost For Fail(=0) Term
+	cost_1		= np.log(h_theta)			# Cost For Pass(=1) Term
+	J			= (1.0/float(m))*((-1*np.matmul(np.transpose(y),cost_1))-np.matmul(np.transpose(1-y),cost_0))
+	grad		= (1.0/float(m))*np.matmul(np.transpose(X),np.subtract(h_theta,y))	
+	return J[0][0], grad
 	
 ## Load Data
 #  The first two columns contains the exam scores and the third column
@@ -54,9 +81,10 @@ y_data 	= data.iloc[:,2]
 
 #Get the Data
 X_data 	= data.iloc[:,0:2]
+(m, n) 	= X_data.shape
 
-m 		= len(y_data)						  #Number of training samples
 y 		= np.array(y_data)
+#  Setup the data matrix appropriately, and add ones for the intercept term
 X 		= np.c_[np.ones(m), np.array(X_data)] # Add a column of ones to x
 
 #Call The Plotting Function
@@ -64,3 +92,11 @@ X 		= np.c_[np.ones(m), np.array(X_data)] # Add a column of ones to x
 
 #Call The Sigmoid Function
 #print sigmoid(np.zeros((2,2)))
+
+# Initialize fitting parameters
+initial_theta = np.zeros((n + 1, 1))
+
+# Compute and display initial cost and gradient
+[cost, grad] = computeCost(initial_theta, X, y)
+print 'Cost is:', cost 
+print 'Gradient Matrix:', grad
