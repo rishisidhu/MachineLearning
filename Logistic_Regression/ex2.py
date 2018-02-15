@@ -7,10 +7,12 @@
 #  regression exercise. You will need to complete the following functions 
 #  in this exericse:
 #
-#     sigmoid.m
-#     costFunction.m
-#     predict.m
-#     costFunctionReg.m
+#     sigmoid
+#     computeCost
+#     computeGrad
+#     predict
+#     computeCostReg
+#     computeGradReg
 
 import pandas as pd
 import matplotlib.pyplot as plt
