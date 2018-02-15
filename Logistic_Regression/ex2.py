@@ -122,9 +122,26 @@ def plotDecisionBoundary(theta, X, y):
 		plt.plot(plot_x, plot_y)
 		plt.show()
 		
-		# Legend, specific for the exercise
-		#legend('Admitted', 'Not admitted', 'Decision Boundary')
-		#axis([30, 100, 30, 100])
+def predict(theta, X):
+	#PREDICT Predict whether the label is 0 or 1 using learned logistic 
+	#regression parameters theta
+	#   p = PREDICT(theta, X) computes the predictions for X using a 
+	#   threshold at 0.5 (i.e., if sigmoid(theta'*x) >= 0.5, predict 1)
+
+	m = len(X) # Number of training examples
+	# ====================== YOUR CODE HERE ======================
+	# Instructions: Complete the following code to make predictions using
+	#               your learned logistic regression parameters. 
+	#               You should set p to a vector of 0's and 1's
+	#
+
+	answer = sigmoid(np.matmul(X,theta))
+	# You need to return the following variables correctly
+	p=0
+	p = [int(round(x)) for x in answer]
+	return np.array(p)
+	# =========================================================================
+
 ## Load Data
 #  The first two columns contains the exam scores and the third column
 #  contains the label.
@@ -162,4 +179,29 @@ optimal_theta = Result.x
 print "Optimal Theta: ", Result.x
 print "Optimal Cost: ", Result.fun
 
+#Plotting the Decision Boundary
 plotDecisionBoundary(optimal_theta, X, y)
+
+## ============== Part 4: Predict and Accuracies ==============
+#  After learning the parameters, you'll like to use it to predict the outcomes
+#  on unseen data. In this part, you will use the logistic regression model
+#  to predict the probability that a student with score 45 on exam 1 and 
+#  score 85 on exam 2 will be admitted.
+#
+#  Furthermore, you will compute the training and test set accuracies of 
+#  our model.
+#
+#  Your task is to complete the code in function predict()
+
+#  Predict probability for a student with score 45 on exam 1 
+#  and score 85 on exam 2 
+
+prob = sigmoid(np.matmul(np.array([1, 45, 85]), optimal_theta))
+print 'For a student with scores 45 and 85, we predict an admission probability of', prob
+
+# Compute accuracy on our training set
+p = predict(optimal_theta, X)
+
+
+print 'Train Accuracy: ', np.sum(p == y) #Should be 89%
+
