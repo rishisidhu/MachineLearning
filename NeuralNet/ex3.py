@@ -1,9 +1,9 @@
 import scipy.io
+import numpy as np
+
 mat = scipy.io.loadmat('ex3data1.mat')
-print type(mat)
-print len(mat)
-for key,value in mat.items():
-	print key
-	print '***'
-	print value
-	print '^^^^^^^^^^^^^^^^^^^^'
+X = np.array(mat['X'])
+Y = np.array(mat['y'])
+
+print "Images Dimension:", X.shape
+print "Labels Dimension:", Y.shape
