@@ -334,7 +334,7 @@ X = mapFeature(X1, X2)
 initial_theta = np.zeros((n, 1))
 
 # Set regularization parameter lambda to 1
-reg_lambda = 0.0001
+reg_lambda = 100
 
 # Compute and display initial cost and gradient
 cost= computeCostReg(initial_theta, X, y, reg_lambda)

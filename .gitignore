@@ -5,6 +5,9 @@ ex1data1.txt
 ex2data1.txt
 ex2data2.txt
 
+#Data
+*.mat
+
 #IMages
 *.png
 
