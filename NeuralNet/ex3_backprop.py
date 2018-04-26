@@ -158,7 +158,14 @@ def nnCostFunction(nn_params, input_layer_size, hidden_layer_size, num_labels, X
 	J_mat	  = (1.0/float(m))*(J_0-J_1)
 	J = np.sum(J_mat)
 	
-	
+	#Regularized Cost
+	T1_shape = T1.shape
+	T2_shape = T2.shape
+	#Bias Terms Don't Figure in Regularization so 
+	#We will ignore the first column of T1 and T2
+	denom = 2.0*float(m)
+	lambda_ratio = lambda_p/denom
+	J = J+lambda_ratio*(np.sum(np.square(T1[:,1:]))+np.sum(np.square(T2[:,1:])))
 	
 	return J
 		
@@ -217,12 +224,12 @@ print 'Size of Theta2:', Theta2.shape
 print '\nFeedforward Using Neural Network ...\n'
 
 # Weight regularization parameter (we set this to 0 here).
-lambda_p = 0;
+lambda_p = 1.0
 
 nn_params = [Theta1, Theta2]
 J = nnCostFunction(nn_params, input_layer_size, hidden_layer_size, num_labels, X, Y, lambda_p)
 
-print 'Cost at parameters (loaded from ex4weights):',J,'\n(this value should be about 0.287629)\n'
+print 'Cost at parameters (loaded from ex4weights):',J,'\n(this value should be about 0.287629 for unregularized and 0.38377 for regularized)\n'
 
 
 
