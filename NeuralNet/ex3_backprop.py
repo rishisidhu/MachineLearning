@@ -82,6 +82,7 @@ def nnCostFunction(nn_params, input_layer_size, hidden_layer_size, num_labels, X
 	#partial derivatives of the neural network.
 	#
 
+	#Retreive Theta1 and Theta2
 	T1 = nn_params[0]
 	T2 = nn_params[1]
 	
@@ -93,8 +94,9 @@ def nnCostFunction(nn_params, input_layer_size, hidden_layer_size, num_labels, X
 	Theta1_grad = np.zeros(T1.shape)
 	Theta2_grad = np.zeros(T2.shape)
 	
-	print Theta1_grad.shape
-	print Theta2_grad.shape
+	#print Theta1_grad.shape
+	#print Theta2_grad.shape
+	
 	# ====================== YOUR CODE HERE ======================
 	# Instructions: You should complete the code by working through the
 	#               following parts.
@@ -127,28 +129,37 @@ def nnCostFunction(nn_params, input_layer_size, hidden_layer_size, num_labels, X
 	#               and Theta2_grad from Part 2.
 	#
 
-	#X = [ones(m, 1) X];
 	X = np.c_[np.ones(m), X] # Add a column of ones to x
+	
+	#Layer 2
 	z_2 = np.matmul(X,np.transpose(Theta1))
 	a_2 = sigmoid(z_2)
 	(a_m, a_n) = a_2.shape
 	a_2 = np.c_[np.ones(a_m), a_2] #Adding A column of 1's
+	
+	#Layer 3
 	z_3 = np.matmul(a_2, np.transpose(Theta2))
 	h_theta=sigmoid(z_3)
 
+	#Cost Components
 	cost_0 = np.log(1-h_theta)
 	cost_1 = np.log(h_theta)
 
+	#Modified Y Matrix (Ones and Zeros instead of class labels)
 	y_new  = np.zeros((m,num_labels))
 	#print "Ynew Shape:", y_new.shape
 	for i in range(m):
 		#Label 0 is at the 10th position. Take Note of that!
 		y_new[i,y[i]-1]=1
+		
+	#Compute Un-regularized Cost J
 	J_0 = -1.0*np.multiply(y_new,cost_1)
 	J_1 = np.multiply((1-y_new),cost_0)
-	
 	J_mat	  = (1.0/float(m))*(J_0-J_1)
 	J = np.sum(J_mat)
+	
+	
+	
 	return J
 		
 
