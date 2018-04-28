@@ -49,6 +49,35 @@ def sigmoidGradient(z):
 	g = np.multiply(sigmoid(z),(1-sigmoid(z)))
 	return g
 
+
+'''	
+#RANDINITIALIZEWEIGHTS Randomly initialize the weights of a layer with L_in incoming connections and L_out outgoing connections
+   W = RANDINITIALIZEWEIGHTS(L_in, L_out) randomly initializes the weights 
+   of a layer with L_in incoming connections and L_out outgoing 
+   connections. 
+   Note that W should be set to a matrix of size(L_out, 1 + L_in) as
+   the column row of W handles the "bias" terms
+
+'''
+def randInitializeWeights(L_in, L_out):
+
+	# You need to return the following variables correctly 
+	W = np.zeros((L_out, 1 + L_in))
+
+	# ====================== YOUR CODE HERE ======================
+	# Instructions: Initialize W randomly so that we break the symmetry while
+	#               training the neural network.
+	#
+	# Note: The first row of W corresponds to the parameters for the bias units
+	#
+
+
+	# Randomly initialize the weights to small values
+	epsilon_init = 0.12;
+	W = (np.random.uniform(size=(L_out, 1 + L_in)) * 2 * epsilon_init) - epsilon_init
+	return W
+
+
   
 '''
 PREDICT Predict the label of an input given a trained neural network
@@ -255,7 +284,22 @@ print 'Cost at parameters (loaded from ex4weights):',J,'\n(this value should be 
 print('\nEvaluating sigmoid gradient...\n')
 
 g = sigmoidGradient(np.array([-100,-100,0,0.5,1]))
-print 'Sigmoid gradient evaluated at [100 -100 0 0.5 1]:  ',g,'\n\n'
+print 'Sigmoid gradient evaluated at [100 -100	 0 0.5 1]:  ',g,'\n\n'
+
+
+## ================ Part 5: Initializing Pameters ================
+#  In this part of the exercise, you will be starting to implment a two
+#  layer neural network that classifies digits. You will start by
+#  implementing a function to initialize the weights of the neural network
+#  (randInitializeWeights.m)
+
+print('\nInitializing Neural Network Parameters ...\n')
+
+
+initial_Theta1 = randInitializeWeights(input_layer_size, hidden_layer_size);
+initial_Theta2 = randInitializeWeights(hidden_layer_size, num_labels);
+#print initial_Theta1.shape
+#print initial_Theta2.shape
 
 
 
