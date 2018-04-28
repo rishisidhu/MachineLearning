@@ -35,6 +35,21 @@ SIGMOID computes sigmoid of a number
 def sigmoid(x):
   return 1 / (1 + np.exp(-x))
   
+  
+'''SIGMOIDGRADIENT returns the gradient of the sigmoid function evaluated at z
+   g = SIGMOIDGRADIENT(z) computes the gradient of the sigmoid function
+   evaluated at z. This should work regardless if z is a matrix or a
+   vector. In particular, if z is a vector or matrix, you should return
+   the gradient for each element.
+'''
+def sigmoidGradient(z):	
+# ====================== YOUR CODE HERE ======================
+# Instructions: Compute the gradient of the sigmoid function evaluated at
+#               each value of z (z can be a matrix, vector or scalar).
+	g = np.multiply(sigmoid(z),(1-sigmoid(z)))
+	return g
+
+  
 '''
 PREDICT Predict the label of an input given a trained neural network
    p = PREDICT(Theta1, Theta2, X) outputs the predicted label of X given the
@@ -223,13 +238,25 @@ print 'Size of Theta2:', Theta2.shape
 #
 print '\nFeedforward Using Neural Network ...\n'
 
-# Weight regularization parameter (we set this to 0 here).
+# Weight regularization parameter (we set this to 0 for removing regularization).
 lambda_p = 1.0
 
 nn_params = [Theta1, Theta2]
 J = nnCostFunction(nn_params, input_layer_size, hidden_layer_size, num_labels, X, Y, lambda_p)
 
 print 'Cost at parameters (loaded from ex4weights):',J,'\n(this value should be about 0.287629 for unregularized and 0.38377 for regularized)\n'
+
+## ================ Part 4: Sigmoid Gradient  ================
+#  Before you start implementing the neural network, you will first
+#  implement the gradient for the sigmoid function. You should complete the
+#  code in the sigmoidGradient.m file.
+#
+
+print('\nEvaluating sigmoid gradient...\n')
+
+g = sigmoidGradient(np.array([-100,-100,0,0.5,1]))
+print 'Sigmoid gradient evaluated at [100 -100 0 0.5 1]:  ',g,'\n\n'
+
 
 
 
